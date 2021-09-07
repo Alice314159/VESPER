@@ -133,8 +133,8 @@ def testRandmonStockEarnMoney():
 
 def testCertainStockEarnMoney():
     stock_code_list1 = getStockCodeInfo.getAllStockCodeFromFile(logger)
-    #stock_code_list = stock_code_list1[0:50]
-    stock_code_list = ['SZ.300015']
+    stock_code_list = stock_code_list1[0:50]
+    #stock_code_list = ['SZ.300015']
     list_stock_money = []
     stock_num = len(stock_code_list)
 

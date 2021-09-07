@@ -1,7 +1,9 @@
 from GetStockData import GetDataFromWeb as DownLoadStockData
 from GetStockData import GetCompositeIndex as DownLoadCompositeData
+from datetime import datetime
 import sys
 print(sys.argv)
+
 from Common import Logger
 logger = Logger.log()
 
@@ -24,17 +26,19 @@ def paramParse():
 
 
 from apscheduler.schedulers.blocking import BlockingScheduler
-from datetime import datetime
 
-
-# 输出时间
-def job():
+# 每天执行一次的任务，每天下午六点半执行
+def GetDataForDay():
     strnum = paramParse()
     DownLoadCompositeData.GetCompositeIndex(logger)
     DownLoadStockData.TimeToGetDataRunForEveryDay(logger,strnum)
 
 
-job()
+def GetRealDataForMin():
+    DownLoadStockData.TimeToGetDataRunForEveryMin(logger)
+
+
 scheduler = BlockingScheduler()
-scheduler.add_job(job, 'cron', day_of_week='1-5', hour=18, minute=30)
+scheduler.add_job(GetDataForDay, 'cron', day_of_week='1-5', hour=18, minute=30)
+scheduler.add_job(GetRealDataForMin,trigger='interval', minutes=5,next_run_time=datetime.now())
 scheduler.start()

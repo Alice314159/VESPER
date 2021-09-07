@@ -26,23 +26,6 @@ def getDayKline(logger,stock_code_list, adjustflagList, frequencyData='d'):
     #### 登出系统 ####
     bs.logout()
 
-#
-# # 输入股票的编号，获取数据的开始结束日期，获取的数据类型
-# def getDayRealTimeData(logger,stock_code_list, adjustflagList, frequencyData='5'):
-#     #### 登陆系统 ####
-#     lg = bs.login()
-#     # 显示登陆返回信息
-#     if lg.error_code != '0':
-#         logger.error('login respond  error_msg:' + lg.error_msg)
-#         return
-#
-#     for stock_code in stock_code_list:
-#         for adjustFlag in adjustflagList:
-#             getMinuteStockCodeData(stock_code, adjustFlag, frequencyData)
-#
-#     #### 登出系统 ####
-#     bs.logout()
-
 # 输入单个股票编号，获取最新的数据
 def getAndSaveSingleStockCodeData(logger,stock_code, adjustflagData, frequencyData='d'):
     #### 获取沪深A股历史K线数据 ####
@@ -77,60 +60,9 @@ def getAndSaveSingleStockCodeData(logger,stock_code, adjustflagData, frequencyDa
     logger.info("write file:{} finished".format(file_name))
 
 
-# # 输入单个股票编号，获取最新的数据,该数据不能实时获取
-# def getMinuteStockCodeData(logger,stock_code, adjustflagData, frequencyData='5'):
-#     #### 获取沪深A股历史K线数据 ####
-#     # 详细指标参数，参见“历史行情指标参数”章节；“分钟线”参数与“日线”参数不同。“分钟线”不包含指数。
-#     # 分钟线指标：date,time,code,open,high,low,close,volume,amount,adjustflag
-#     # 周月线指标：date,code,open,high,low,close,volume,amount,adjustflag,turn,pctChg
-#     folder_path = CONST.STOCK_FOLDER_PATH + "\\real_\\" + stock_code
-#     mkdir(folder_path)
-#
-#     file_name = folder_path + "\\" + getFileNameByAdjust(adjustflagData)
-#
-#     end_time = (datetime.date.today()).strftime("%Y-%m-%d")
-#
-#     #str_get_data_name = "date,code,open,high,low,close,preclose,volume,amount,adjustflag,turn,tradestatus,pctChg,isST"
-#     str_get_data_name = "date, time, code, open, high, low, close, volume, amount, adjustflag"
-#     rs = bs.query_history_k_data_plus(stock_code, str_get_data_name,
-#                                       start_date="", end_date=end_time,
-#                                       frequency=frequencyData, adjustflag=adjustflagData)
-#     logger.info('query_history_k_data_plus code:{} respond error_code:{}'.format(stock_code, rs.error_code))
-#     if rs.error_code != '0':
-#         logger.warning('query_history_k_data_plus code:{} respond  error_msg:{}'.format(stock_code, rs.error_msg))
-#         return
-#     #### 打印结果集 ####
-#     data_list = []
-#     while (rs.error_code == '0') & rs.next():
-#         # 获取一条记录，将记录合并在一起
-#         temp_data = rs.get_row_data()
-#         data_list.append(temp_data)
-#     result = pd.DataFrame(data_list, columns=rs.fields)
-#
-#     final = result.drop_duplicates(subset=[CONST.STOCK_DATE_ENG], keep='last')
-#     final.to_excel(file_name, index=False)
-#     logger.info("write file:{} finished".format(file_name))
-
-#
-# # 计算获取股票的开始时间，以文件的最新日期为准，同时返回文件中的当前数据
-# def __getSingleStockBeginTime(logger,file_name):
-#     beginTime = '2010-01-01'
-#
-#     try:
-#         if os.path.exists(file_name):
-#             logger.info('{} is found ,begin to read'.format(file_name))
-#
-#             df = pd.read_excel(file_name)
-#             beginTime = df[CONST.STOCK_DATE_ENG].max()
-#             return df, beginTime
-#         else:
-#             return pd.DataFrame(), beginTime
-#     except:
-#         return pd.DataFrame(), beginTime
-#
-
 # 获取最新一个交易日的分钟级别股票行情数据,数据间隔时间为 1 分钟
 def getRealTimeData(logger,freq = 1,folder_path = CONST.STOCK_REAL_FOLDER_PATH):
+    getStockCodeInfo.getAllStockCodeFromWeb(logger)
     stock_code_list = getStockCodeInfo.getAllStockCodeWithoutExFromFile(logger)
     mkdir(folder_path)
     for stock_code in stock_code_list:
