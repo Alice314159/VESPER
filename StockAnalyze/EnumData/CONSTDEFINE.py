@@ -45,11 +45,32 @@ STOCK_60_MEAN_ENG = 'Stock60Mean'
 STOCK_20_MEAN_ENG = 'Stock20Mean'
 #六十日线的交易字段
 STOCK_TRADE_ENG = 'StockTrade'
+#J线计算结果
+STOCK_SZ_JLINE_THRES = 'SZ_JLine_Thresh'
+#十日内收盘价最大值
+STOCK_10_CLOSE_PRICE_HIGHEST = 'StockClose10Highest'
+#二十日内收盘价最大值
+STOCK_20_CLOSE_PRICE_HIGHEST = 'StockClose20Highest'
 
+#反映买入价格和60日均线价格之间的关系 PT/K60T≥a
+BUY_PRICE_60_MEANS = 'BUY_PRICE_60_MEANS'
+#反映当天收盘价格和最高价格、最低价格之间的远近关系(PTH-PT)/(PT-PTL)≤b
+CLOSE_PRICE_HIGH_LOW = 'CLOSE_PRICE_HIGH_LOW'
+#反映当日交易金额和前几日交易金额之间的关系QT/Q(T-1)≥c
+TRADE_MONEY_RATE = 'TRADE_MONEY_RATE'
+#看买入当日是否满足双底形态
+
+
+#默认读取数据时加载近两年的数据
+DATA_BEGIN_DATA = '2020-01-01'
 #股票的KDJ线
+STOCK_SZ_J_LINE = 'SZ_J-Line'
 STOCK_K_LINE = 'K-Line'
 STOCK_D_LINE = 'D-Line'
 STOCK_J_LINE = 'J-Line'
+STOCK_J_LINE_LARGEN = 'J-Line_largen'
+STOCK_J_SLOPE_LARGEN = 'J-Line_Slope_largen'
+STOCK_J_SLOPE_LOWER = 'J-Line_Slope_Lower'
 #计算KDJ的参数指标.日KDJ线对股价反应敏感是日常买卖进出的重要方法。
 #默认参数为9，短期可以将参数修正为5，反应敏捷迅速准确，降低钝化现象。常用的参数有5,9,19,36,45,73等。
 STOCK_KDJ_DAY_PARAM = 9
@@ -67,6 +88,10 @@ STOCK_FOLDER_PATH = '..\Data\StockData'
 #STOCK_FOLDER_PATH = 'Z:\\'
 #当天的实时数据
 STOCK_REAL_FOLDER_PATH = '..\Data\RealData'
+#计算结果临时存储
+STOCK_TEMP_FOLDER_PATH = '..\Data\Param'
+#存储计算买卖点数据
+STOCK_TEMP_TRADE_PATH = '..\Data\Trade'
 #股票的原始数据信息
 STOCK_DATA_ORIGNAL_FILE_NAME = "original_data.xlsx"
 #股票的前复权数据信息
@@ -74,7 +99,7 @@ STOCK_DATA_PRE_FILE_NAME = "pre_data.xlsx"
 #股票的后复权数据信息
 STOCK_DATA_AFTER_FILE_NAME = "after_data.xlsx"
 
-STOCK_CODE_FILE_NAME = "stockCode.xlsx"
+STOCK_CODE_FILE_NAME = "stockCode1.xlsx"
 
 
 
@@ -109,3 +134,5 @@ SZ_INDEX_CODE = 'SZ.399106'
 ExPression_Equal = '=='
 ExPression_Bigger = '>'
 ExPression_Smaller = '<'
+ExPression_Bigger_Equal = '>='
+ExPression_Smaller_Equal ='<='

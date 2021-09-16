@@ -1,11 +1,27 @@
 # J线买入策略的阈值，要小于10
 J_LINE_BUY_THRESHOLD = "J_LINE_BUY_THRESHOLD"
+
+#J线小于某一个值
+J_LINE_SMALLER_THRESHOLD = "J_LINE_SMALLER_THRESHOLD"
+#J线大于某一个值
+J_LINE_BIGGER_THRESHOLD = "J_LINE_BIGGER_THRESHOLD"
+
 # J线变小，且斜率变化小于0.8
 J_LINE_BUY_SLOPE = 'J_LINE_BUY_SLOPE'
 # 20日线的变化 Kt/Kt-1 大于0.998
 J_LINE_CHANGE = 'J_LINE_CHANGE'
 # 比十日最高点下跌8%
 J_LINE_CLOSE_PRICE_DOWN = 'J_LINE_CLOSE_PRICE_DOWN'
+#上证指数J线要低于15
+SZ_J_LINE = 'SZ_J_LINE'
+#反映买入价格和60日均线价格之间的关系 PT/K60T≥a
+BUY_PRICE_60_MEANS = 'BUY_PRICE_60_MEANS'
+#反映当天收盘价格和最高价格、最低价格之间的远近关系(PTH-PT)/(PT-PTL)≤b
+CLOSE_PRICE_HIGH_LOW = 'CLOSE_PRICE_HIGH_LOW'
+#反映当日交易金额和前几日交易金额之间的关系QT/Q(T-1)≥c
+TRADE_MONEY_RATE = 'TRADE_MONEY_RATE'
+#看买入当日是否满足双底形态
+
 
 # 卖出点策略组合
 # J线大于70

@@ -48,6 +48,9 @@ def readSingleStockData(logger,stock_code, file_name = CONST.STOCK_DATA_AFTER_FI
         logger.info("file = {} is existed,begin to read".format(file_path))
         df_stock = pd.read_excel(file_path)
         df_final = df_stock.drop_duplicates(subset=[CONST.STOCK_DATE_ENG], keep='last')
+
+        #筛选2021年以来的数据
+        df_final = df_final[df_final[CONST.STOCK_DATE_ENG] >CONST.DATA_BEGIN_DATA ]
         logger.debug("file = {} data：{}".format(file_path,df_final))
         return df_final
     else:

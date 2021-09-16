@@ -9,9 +9,7 @@ from Common import Logger
 import pandas as pd
 from Common.Utils import GenerateRandomNum
 from Common.Utils import GetJLineEarnRateFileName
-from Common import Utils
-from AnalyStock import Expression
-
+from AnalyStock import KDJStragety
 logger = Logger.log()
 
 
@@ -131,62 +129,24 @@ def testRandmonStockEarnMoney():
     logger.info('total stock num : {} ,ave_earn_money ={}'.format(stock_num, earn_money))
 
 
-def testCertainStockEarnMoney():
+
+def testCertainStockEarnMoney(logger):
     stock_code_list1 = getStockCodeInfo.getAllStockCodeFromFile(logger)
     stock_code_list = stock_code_list1[0:50]
     #stock_code_list = ['SZ.300015']
-    list_stock_money = []
-    stock_num = len(stock_code_list)
+    KDJStragety.KDJStragetyStockEarnMoney(logger,stock_code_list)
 
-    begin_date = '2021-01-01'
 
-    # 获取上证综合指数数据
-    df_SZ_data = RD.getCompositeIndexFileData(logger, CONST.SZ_INDEX_CODE, CONST.STOCK_DATA_ORIGNAL_FILE_NAME,
-                                              CONST.STOCK_FOLDER_PATH)
+def testParam(logger):
 
-    df_SZ_data = Utils.CalKDJLine(CONST.SZ_INDEX_CODE, df_SZ_data)
-    df_SZ_KDJ_data = df_SZ_data[df_SZ_data[CONST.STOCK_DATE_ENG] >= begin_date]
-    list_buy_date = Expression.GetCompositeIndexDateList(logger,df_SZ_KDJ_data,15,CONST.STOCK_J_LINE,CONST.ExPression_Smaller)
+    return
 
-    for stock_code in stock_code_list:
 
-        df_orignal = RD.readSingleStockData(logger, stock_code, CONST.STOCK_DATA_PRE_FILE_NAME,
-                                            CONST.STOCK_FOLDER_PATH)
-
-        if df_orignal.empty:
-            logger.warning("stock-{} data is wrong ,please check".format(stock_code))
-
-        else:
-            date_stock_begin_temp = df_orignal[CONST.STOCK_DATE_ENG].min()
-            begin_date = max(date_stock_begin_temp, begin_date)
-
-            df_orignal = df_orignal[df_orignal[CONST.STOCK_DATE_ENG] >= begin_date]
-            df_trade_info = CalKDJ.calJLineStragety(stock_code, df_orignal)
-
-            if df_trade_info.__sizeof__() >= 1:
-                money = BUYORSELL.VerifyStrategyForDataFrame(stock_code, df_trade_info,list_buy_date)
-                list_stock_money.append([stock_code, money])
-            else:
-                logger.info('stock code {} trade data is not enough {}'.format(stock_code, df_trade_info))
-
-    df_earn_money2 = pd.DataFrame(list_stock_money, columns=['stock', 'money'])
-
-    df_earn_money = df_earn_money2[(df_earn_money2['money'] != 10000) & (df_earn_money2['money'] > 0)]
-    count = len(df_earn_money)
-    if count >0:
-        earn_money = round(df_earn_money['money'].sum() / count, 2)
-
-        df_earn_money.loc[df_earn_money.index.max() + 1] = earn_money
-        df_earn_money.loc[df_earn_money.index.max(), 'stock'] = 'statics'
-
-        file_name = GetJLineEarnRateFileName()
-        df_earn_money.to_excel('../param/' + file_name)
-        logger.info('total stock num : {} ,sell num:{},ave_earn_money ={}'.format(stock_num, count, earn_money))
-    else:
-        logger.warning('total stock num : {} ,sell num:{}'.format(stock_num, count))
 
 if __name__ == '__main__':
     # runForSingleCode()
     # calKDJTest()
-    testCertainStockEarnMoney()
+    testCertainStockEarnMoney(logger)
     #GetStockData.GetDataFromWeb.TimeToGetDataRunForEveryMin(logger)
+    # from AnalyStock.WFigureJudge import JudgeStockWFigure
+    # JudgeStockWFigure(logger)

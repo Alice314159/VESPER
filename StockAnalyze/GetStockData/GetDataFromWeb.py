@@ -11,7 +11,12 @@ import efinance as ef
 
 
 # 输入股票的编号，获取数据的开始结束日期，获取的数据类型
-def getDayKline(logger,stock_code_list, adjustflagList, frequencyData='d'):
+def getDayKline(logger,stock_code_list, adjustflagList =[], frequencyData='d'):
+
+    if len(adjustflagList) <= 0:
+        adjustflagList = [CONST.STOCK_DATA_PreStandardized]
+
+
     #### 登陆系统 ####
     lg = bs.login()
     # 显示登陆返回信息

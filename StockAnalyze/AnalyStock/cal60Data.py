@@ -5,11 +5,6 @@ from AnalyStock.BuyORSell import stockData2TradeInfo
 
 
 
-def _calMa60Data(df_stock_data):
-    df_stock_data[CONST.STOCK_60_MEAN_ENG] = df_stock_data[CONST.STOCK_CLOSE_ENG].rolling(window=60).mean()
-    return df_stock_data
-
-
 # 获取收盘价低于60日线20%的数据
 def getClosingPriceLowerMa60(stock_code,df_stock_data):
     df_stock_data[CONST.STOCK_60_MEAN_ENG] = df_stock_data[CONST.STOCK_CLOSE_PRICE_ENG].rolling(window=60).mean()

@@ -70,27 +70,18 @@ def GenerateRandomNum(num):
     return list(set(list_num))
 
 #根据配置文件生成文件名称
-def GetJLineEarnRateFileName():
+def GetJLineEarnRateFileName(earn_money = 10000):
     RD = ReadConfig.ReadConfig()
     param_list = RD.GetJlineItems()
-    file_name = "param_J_"
+    file_name = CONST.STOCK_TEMP_FOLDER_PATH + "\\" + "param_J_" + str(earn_money) + '_'
     for data in param_list:
+        if data[1] == '':
+            continue
         file_name += (data[1] +"_")
     file_name += ".xlsx"
     return file_name
 
-def CalKDJLine(stock_code, df_stock_data):
-    low_list = df_stock_data[CONST.STOCK_LOWEST_ENG].rolling(9, min_periods=9).min()
-    low_list.fillna(value=df_stock_data[CONST.STOCK_LOWEST_ENG].expanding().min(), inplace=True)
-    high_list = df_stock_data[CONST.STOCK_HIGHEST_ENG].rolling(9, min_periods=9).max()
-    high_list.fillna(value=df_stock_data[CONST.STOCK_HIGHEST_ENG].expanding().max(), inplace=True)
-    rsv = (df_stock_data[CONST.STOCK_CLOSE_PRICE_ENG] - low_list) / (high_list - low_list) * 100
 
-    df_stock_data[CONST.STOCK_K_LINE] = pd.DataFrame(rsv).ewm(com=2).mean()
-    df_stock_data[CONST.STOCK_D_LINE] = df_stock_data[CONST.STOCK_K_LINE].ewm(com=2).mean()
-    df_stock_data[CONST.STOCK_J_LINE] = 3 * df_stock_data[CONST.STOCK_K_LINE] - 2 * df_stock_data[CONST.STOCK_D_LINE]
-
-    return df_stock_data
 
 if __name__ == '__main__':
     ndays = GetWeekday('2021-08-31')

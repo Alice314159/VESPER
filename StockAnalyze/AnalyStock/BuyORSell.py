@@ -12,13 +12,6 @@ logger = Common.Logger.log()
 
 # 将股票信息中的买卖数据统一进行格式转换，方便统一格式
 def stockData2TradeInfo(stock_code, df_stock_trade_info,configParam):
-    # 第一次确认买卖点，将计算确认的买卖点筛选
-    # df_trade_points = df_stock_trade_info[ (df_stock_trade_info[CONST.STOCK_SELL_IF_SECTION] == True) |
-    #     (df_stock_trade_info[CONST.STOCK_BUY_SECTION] == True) | (df_stock_trade_info[CONST.STOCK_SELL_SECTION] == True)]
-
-    # print(df_trade_points[[CONST.STOCK_DATE_ENG,CONST.STOCK_CLOSE_PRICE_ENG,CONST.STOCK_BUY_SECTION,CONST.STOCK_SELL_SECTION,CONST.STOCK_SELL_IF_SECTION]])
-    # 将确认的买卖点进行去重，连续的买点或者卖点至保留时间老的一个
-    # df_stock_trade_info.to_excel("E:\pythonCode\StockAnalyze\JlineData\\" + stock_code + '.xlsx')
     last_status = ""
     last_buy_price = 0
     dict_trade_info_total = {}
@@ -68,23 +61,29 @@ def stockData2TradeInfo(stock_code, df_stock_trade_info,configParam):
 
     return dict_trade_info_total
 
+def printTradeInfo(logger,stock_code,date,trade_flag):
+    if trade_flag == StockTrade.Buy:
+        logger.info('date {} buy stock {}'.format(date,stock_code))
+    elif trade_flag == StockTrade.Sell:
+        logger.info('date {} sell stock {}'.format(date,stock_code))
+    else:
+        logger.info('date {} no deal stock {}'.format(date,stock_code))
 
-def VerifyStrategyForDataFrame(stock_code, dict_stock_trade_info,list_buy_date = []):
+def VerifyStrategyForDataFrame(stock_code, dict_stock_trade_info):
     temp_idle_money = 10000
     temp_stock_money = 0
     last_buy_price = 0
     last_buy_date = ''
 
     currentTime = datetime.datetime.now().strftime("%Y-%m-%d")
-    logger.info("sz datelist = {}".format(list_buy_date))
-    list_temp = list(dict_stock_trade_info.keys())
-    logger.info("buy or sell  datelist = {}".format(list_temp))
-    logger.warn("common date:{}".format(set(list_temp).intersection(set(list_buy_date))))
-
     for key, value in dict_stock_trade_info.items():
         trade_flag = value[0]
         temp_date = key
-        if (trade_flag == StockTrade.Buy) & (temp_date in list_buy_date):
+
+        printTradeInfo(logger, stock_code, temp_date, trade_flag)
+
+
+        if (trade_flag == StockTrade.Buy) :
             temp_stock_money = temp_idle_money
             last_buy_date = key
             last_buy_price = round(value[1], 2)
