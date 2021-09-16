@@ -1,11 +1,11 @@
 # 引入模块
 import os
-from EnumData import CONSTDEFINE as CONST
+from StockAnalyze.EnumData import CONSTDEFINE as CONST
 import pandas as pd
 import time
 import datetime
 import numpy as np
-from Common import ReadConfig
+from StockAnalyze.Common import ReadConfig
 
 
 def mkdir(path):

@@ -2,8 +2,8 @@ import baostock as bs
 import pandas as pd
 import os
 import datetime
-from EnumData import CONSTDEFINE as CONST
-from Common.Utils import mkdir
+from StockAnalyze.EnumData import CONSTDEFINE as CONST
+from StockAnalyze.Common.Utils import mkdir
 
 
 

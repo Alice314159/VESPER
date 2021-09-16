@@ -1,13 +1,13 @@
 import datetime
-import EnumData.ConfigParam as PARAM
-import EnumData.CONSTDEFINE as CONST
-from EnumData.EnumInfo import StockTrade
-from DingTalk import SendMsg as DT
-import Common.Logger
-import Common.Utils as utils
+import StockAnalyze.EnumData.ConfigParam as PARAM
+import StockAnalyze.EnumData.CONSTDEFINE as CONST
+from StockAnalyze.EnumData.EnumInfo import StockTrade
+from StockAnalyze.DingTalk import SendMsg as DT
+import StockAnalyze.Common.Logger
+import StockAnalyze.Common.Utils as utils
 import pandas as pd
 
-logger = Common.Logger.log()
+logger = StockAnalyze.Common.Logger.log()
 
 
 # 将股票信息中的买卖数据统一进行格式转换，方便统一格式

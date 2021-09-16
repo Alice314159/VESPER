@@ -2,10 +2,10 @@ import baostock as bs
 import pandas as pd
 import os
 import datetime
-from EnumData import CONSTDEFINE as CONST
-from Common.Utils import getFileNameByAdjust
-from Common.Utils import mkdir
-from GetStockCode import getStockCodeInfo
+from StockAnalyze.EnumData import CONSTDEFINE as CONST
+from StockAnalyze.Common.Utils import getFileNameByAdjust
+from StockAnalyze.Common.Utils import mkdir
+from StockAnalyze.GetStockCode import getStockCodeInfo
 import efinance as ef
 
 

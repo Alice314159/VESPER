@@ -1,8 +1,8 @@
 # 获取当前所有股票的基础信息
 import tushare as ts
 import pandas as pd
-import EnumData.CONSTDEFINE as CONST
-import Common.Utils as utils
+import StockAnalyze.EnumData.CONSTDEFINE as CONST
+import StockAnalyze.Common.Utils as utils
 
 # 获取所有股票编号，并存入文件
 def getAllStockCodeFromWeb(logger):

@@ -1,10 +1,10 @@
-import EnumData.CONSTDEFINE as CONST
-import EnumData.ConfigParam as PARAM
+import StockAnalyze.EnumData.CONSTDEFINE as CONST
+import StockAnalyze.EnumData.ConfigParam as PARAM
 import pandas as pd
-from AnalyStock.BuyORSell import stockData2TradeInfo
+from StockAnalyze.AnalyStock.BuyORSell import stockData2TradeInfo
 import matplotlib.pyplot as plt
-from Common import ReadConfig
-from Common import Utils
+from StockAnalyze.Common import ReadConfig
+from StockAnalyze.Common import Utils
 Config = ReadConfig.ReadConfig()
 
 

@@ -1,7 +1,7 @@
 import EnumData.CONSTDEFINE as CONST
 from EnumData.EnumInfo import StockTrade
 
-from AnalyStock.BuyORSell import stockData2TradeInfo
+from StockAnalyze.AnalyStock.BuyORSell import stockData2TradeInfo
 
 
 
