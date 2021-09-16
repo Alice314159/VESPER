@@ -120,7 +120,7 @@ def KDJStragetyStockEarnMoney(logger,stock_list):
     list_stock_money =[]
     for stock_code in stock_list:
         #数据不存在的情况下，需要下载数据
-        DownLoadData.getDayKline(logger,[stock_code], [CONST.STOCK_DATA_PreStandardized])
+        #DownLoadData.getDayKline(logger,[stock_code], [CONST.STOCK_DATA_PreStandardized])
 
         df_orignal_data = getSingleCodeDataWithKDJ(logger,stock_code)
 

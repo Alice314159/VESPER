@@ -40,7 +40,7 @@ def stockData2TradeInfo(stock_code, df_stock_trade_info,configParam):
         # 在部分条件满足卖出的条件先，如果T日收盘价满足收益超过5%，则卖出
         elif temp_sell_if_status == True and last_status != CONST.STOCK_SELL_SECTION:
             temp_price = data[CONST.STOCK_CLOSE_PRICE_ENG]
-            if last_buy_price > 0 and temp_price / last_buy_price >= configParam.GetJlineParm(PARAM.J_LINE_SELL_EARN_RATE):
+            if last_buy_price > 0 and temp_price / last_buy_price >= configParam.GetJlineSellParm(PARAM.J_LINE_SELL_EARN_RATE):
                 last_status = CONST.STOCK_SELL_SECTION
                 dict_trade_info_total[date] = (
                     StockTrade.Sell, round(data[CONST.STOCK_CLOSE_PRICE_ENG], 2), CONST.STOCK_SELL_COMMON)
@@ -51,7 +51,7 @@ def stockData2TradeInfo(stock_code, df_stock_trade_info,configParam):
         # 计算止损点，为卖出点
         if last_status == CONST.STOCK_BUY_SECTION:
             temp_price = data[CONST.STOCK_CLOSE_PRICE_ENG]
-            if last_buy_price > 0 and (temp_price / last_buy_price <= configParam.GetJlineParm(PARAM.J_LINE_SELL_STOP_LOSSES)):
+            if last_buy_price > 0 and (temp_price / last_buy_price <= configParam.GetJlineSellParm(PARAM.J_LINE_SELL_STOP_LOSSES)):
                 last_status = CONST.STOCK_SELL_SECTION
                 dict_trade_info_total[date] = (
                     StockTrade.Sell, data[CONST.STOCK_CLOSE_PRICE_ENG], CONST.STOCK_SELL_STOP_LOSS)
