@@ -62,7 +62,7 @@ TRADE_MONEY_RATE = 'TRADE_MONEY_RATE'
 
 
 #默认读取数据时加载近两年的数据
-DATA_BEGIN_DATA = '2020-01-01'
+DATA_BEGIN_DATA = '2018-09-02'
 #股票的KDJ线
 STOCK_SZ_J_LINE = 'SZ_J-Line'
 STOCK_K_LINE = 'K-Line'
@@ -84,7 +84,8 @@ STOCK_SELL_IF_SECTION = 'SELL_IF'
 
 #################################
 #文件存储相关
-STOCK_FOLDER_PATH = '..\Data\StockData'
+STOCK_DATA_FOLDER_PATH = '..\Data\StockData'
+STOCK_CODE_FOLDER_PATH = '..\Data\StockCode'
 #STOCK_FOLDER_PATH = 'Z:\\'
 #当天的实时数据
 STOCK_REAL_FOLDER_PATH = '..\Data\RealData'
@@ -98,8 +99,10 @@ STOCK_DATA_ORIGNAL_FILE_NAME = "original_data.xlsx"
 STOCK_DATA_PRE_FILE_NAME = "pre_data.xlsx"
 #股票的后复权数据信息
 STOCK_DATA_AFTER_FILE_NAME = "after_data.xlsx"
-
-STOCK_CODE_FILE_NAME = "stockCode1.xlsx"
+#所有股票的数据
+STOCK_CODE_FILE_NAME = "stockCode.xlsx"
+#沪深300成分股
+STOCK_CODE_HS300_FILE_NAME = "000300cons.xlsx"
 
 
 

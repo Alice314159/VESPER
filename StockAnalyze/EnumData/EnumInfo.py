@@ -8,4 +8,6 @@ class StockTrade(Enum):
     Sell = 'sell'
 
 
-
+class StockCodeType(Enum):
+    StockTypeAll = 'AllCode'
+    StockHS300 = 'HS300'

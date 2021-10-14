@@ -1,7 +1,7 @@
 # 引入模块
 import os
 from StockAnalyze.EnumData import CONSTDEFINE as CONST
-import pandas as pd
+import shutil
 import time
 import datetime
 import numpy as np
@@ -54,12 +54,16 @@ def CalDaysBetweenDates(date1, date2):
     return abs((date2 - date1).days)  # 将天数转成int型
 
 
-# 输入日期字符串，格式"%Y-%m-%d"，分析是
+# 输入日期字符串，格式"%Y-%m-%d"，分析是周几
 def GetWeekday(strDate):
     import datetime
     nweek = datetime.datetime.strptime(strDate, "%Y-%m-%d").weekday() + 1
     return nweek
 
+def GetNdaysBefore(ndays = 90):
+    import datetime
+    date_ago = (datetime.datetime.now() - datetime.timedelta(ndays)).strftime('%Y-%m-%d')
+    return date_ago
 
 # 生成指定个数的随机数
 def GenerateRandomNum(num):
@@ -81,6 +85,10 @@ def GetJLineEarnRateFileName(earn_money = 10000):
     file_name += ".xlsx"
     return file_name
 
+def DeleteDataUnderFolders(folderpath):
+    shutil.rmtree(folderpath)
+    os.mkdir(folderpath)
+    return
 
 
 if __name__ == '__main__':

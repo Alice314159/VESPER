@@ -18,7 +18,7 @@ from StockAnalyze.Common.Utils import mkdir
 # 主题指数，例如：sh.000015 红利指数，sh.000063 上证周期 等；
 def _getStockData(logger,stock_code = 'SH.000001'):
 
-    folder_path = CONST.STOCK_FOLDER_PATH + "\\" + stock_code.upper()
+    folder_path = CONST.STOCK_DATA_FOLDER_PATH + "\\" + stock_code.upper()
     mkdir(folder_path)
 
     file_name = folder_path + "\\" + CONST.STOCK_DATA_ORIGNAL_FILE_NAME

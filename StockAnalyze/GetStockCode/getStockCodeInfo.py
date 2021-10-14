@@ -14,13 +14,13 @@ def getAllStockCodeFromWeb(logger):
     df_stock_info = pro.stock_basic(exchange='', list_status='L', fields='ts_code,symbol,name,area,industry,list_date')
 
     data = pd.DataFrame(df_stock_info)
-    file_name = CONST.STOCK_FOLDER_PATH + "\\" + CONST.STOCK_CODE_FILE_NAME
-    utils.mkdir(CONST.STOCK_FOLDER_PATH)
+    file_name = CONST.STOCK_CODE_FOLDER_PATH + "\\" + CONST.STOCK_CODE_FILE_NAME
+    utils.mkdir(CONST.STOCK_CODE_FOLDER_PATH)
     data.to_excel(file_name, sheet_name='data')
 
 
 def getAllStockCodeFromFile(logger):
-    file_name = CONST.STOCK_FOLDER_PATH + "\\" + CONST.STOCK_CODE_FILE_NAME
+    file_name = CONST.STOCK_CODE_FOLDER_PATH + "\\" + CONST.STOCK_CODE_FILE_NAME
     pd_stock = pd.read_excel(file_name)
     list_stock = pd_stock.values.tolist()
 
@@ -36,9 +36,9 @@ def getAllStockCodeFromFile(logger):
             logger.warn('stock code error {}'.format(stock_code_temp))
 
     return list_stock_code
-
+#获取股票数据，剔除后缀
 def getAllStockCodeWithoutExFromFile(logger):
-    file_name = CONST.STOCK_FOLDER_PATH + "\\" + CONST.STOCK_CODE_FILE_NAME
+    file_name = CONST.STOCK_CODE_FOLDER_PATH + "\\" + CONST.STOCK_CODE_FILE_NAME
     pd_stock = pd.read_excel(file_name, usecols=[1])
     list_stock = pd_stock.values.tolist()
 

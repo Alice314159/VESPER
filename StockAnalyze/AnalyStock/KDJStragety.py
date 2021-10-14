@@ -42,7 +42,8 @@ def calJLineStragety(stock_code, df_stock_data):
         axis=0)) >= Config.GetJlineBuyParm(PARAM.J_LINE_CHANGE)
 
 
-    df_j_data['SZ'] = df_j_data[CONST.STOCK_SZ_J_LINE] < Config.GetJlineBuyParm(PARAM.SZ_J_LINE)
+    sz_thresh = Config.GetJlineBuyParm(PARAM.SZ_J_LINE)
+    df_j_data['SZ'] = df_j_data[CONST.STOCK_SZ_J_LINE] < sz_thresh
     # 买入点赋值
     df_j_data[CONST.STOCK_BUY_SECTION] = df_j_data['SZ'] & df_j_data['Lower10'] & df_j_data['DownAM'] & df_j_data['JDown'] & df_j_data['JDownSlower'] & df_j_data['Diff20']
 
