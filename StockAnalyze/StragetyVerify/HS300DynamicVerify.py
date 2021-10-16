@@ -21,29 +21,29 @@ def get5MaxAMStocks(logger,buyPeriod=20,maxStock = 2):
     print(df_data)
     date_list = df_data[CONST.STOCK_DATE_ENG].drop_duplicates().values.tolist()
 
-    for j in range(20):
-        row_list =[]
-        for i in range(j, len(date_list), buyPeriod):  ##每隔20行取数据
-            row_list.append(date_list[i])
+    #for j in range(20):
+    row_list =[]
+    for i in range(0, len(date_list), buyPeriod):  ##每隔20行取数据
+        row_list.append(date_list[i])
 
-        df_buy_data = df_data[df_data[CONST.STOCK_DATE_ENG].isin(row_list[:-1])]
+    df_buy_data = df_data[df_data[CONST.STOCK_DATE_ENG].isin(row_list[:-1])]
 
-        initMoney = 10000
-        for date,value in df_buy_data.groupby(df_buy_data[CONST.STOCK_DATE_ENG]):
-            buy_date = date
-            sell_date = set(value[SELL_DATE].tolist())
-            stock_trade_list = value[CONST.STOCK_CODE_ENG].tolist()
+    initMoney = 10000
+    for date,value in df_buy_data.groupby(df_buy_data[CONST.STOCK_DATE_ENG]):
+        buy_date = date
+        sell_date = set(value[SELL_DATE].tolist())
+        stock_trade_list = value[CONST.STOCK_CODE_ENG].tolist()
 
-            stock_num = len(value)
-            temp_money = round(initMoney/stock_num,2)
-            currentMoney = 0
-            for stock_code,buy_price,sell_price in zip(value[CONST.STOCK_CODE_ENG],value[CONST.STOCK_OPEN_PRICE_ENG],value[CONST.STOCK_CLOSE_PRICE_ENG]):
-                earnMoney = round(temp_money *(sell_price/buy_price),2)
-                currentMoney += round(temp_money *(sell_price/buy_price),2)
-                logger.info('stock-{},buy info:{}~{},sell info:{}~{},money:{}~{}'.format(stock_code,buy_date,buy_price,sell_date,sell_price,temp_money,earnMoney))
+        stock_num = len(value)
+        temp_money = round(initMoney/stock_num,2)
+        currentMoney = 0
+        for stock_code,buy_price,sell_price in zip(value[CONST.STOCK_CODE_ENG],value[CONST.STOCK_OPEN_PRICE_ENG],value[CONST.STOCK_CLOSE_PRICE_ENG]):
+            earnMoney = round(temp_money *(sell_price/buy_price),2)
+            currentMoney += round(temp_money *(sell_price/buy_price),2)
+            logger.info('stock-{},buy info:{}~{},sell info:{}~{},money:{}~{}'.format(stock_code,buy_date,buy_price,sell_date,sell_price,temp_money,earnMoney))
 
-            initMoney = currentMoney
+        initMoney = currentMoney
 
-        logger.info('from {} to {} earn money {}'.format(str(row_list[0]),str(row_list[-1]),initMoney))
+    logger.info('from {} to {} earn money {}'.format(str(row_list[0]),str(row_list[-1]),initMoney))
 
 

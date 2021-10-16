@@ -84,7 +84,7 @@ def calJLineStragety(stock_code, df_stock_data):
 #获取单个股票的基础数据，并计算JDK数据
 def getSingleCodeDataWithKDJ(logger,stock_code):
     df_orignal = RD.readSingleStockData(logger, stock_code, CONST.STOCK_DATA_PRE_FILE_NAME,
-                                        CONST.STOCK_FOLDER_PATH)
+                                        CONST.STOCK_DATA_FOLDER_PATH)
 
     if df_orignal.empty:
         logger.warning("stock-{} data is wrong ,please check".format(stock_code))

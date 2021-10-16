@@ -39,7 +39,7 @@ def GetDataForDay():
     strnum = paramParse()
     getStockCodeInfo.getAllStockCodeFromWeb(logger)
 
-    DeleteDataUnderFolders(CONST.STOCK_DATA_FOLDER_PATH)
+    #DeleteDataUnderFolders(CONST.STOCK_DATA_FOLDER_PATH)
     DownLoadCompositeData.GetCompositeIndex(logger)
     DownLoadStockData.TimeToGetDataRunForEveryDay(logger, EnumData.StockCodeType.StockHS300, strnum)
 

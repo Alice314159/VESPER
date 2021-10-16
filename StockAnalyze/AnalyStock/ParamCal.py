@@ -48,8 +48,7 @@ def calKDJLine(stock_code, df_stock_data):
 # 获取上证指数，并计算上证指数的KDJ
 def calCompositeIndexKDJ(logger):
     # 获取上证综合指数数据
-    df_SZ_data = RD.getCompositeIndexFileData(logger, CONST.SZ_INDEX_CODE, CONST.STOCK_DATA_ORIGNAL_FILE_NAME,
-                                              CONST.STOCK_FOLDER_PATH)
+    df_SZ_data = RD.getCompositeIndexFileData(logger, CONST.SZ_INDEX_CODE, CONST.STOCK_DATA_ORIGNAL_FILE_NAME)
 
     df_SZ_data = calKDJLine(CONST.SZ_INDEX_CODE, df_SZ_data)
 

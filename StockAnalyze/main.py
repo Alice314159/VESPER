@@ -12,6 +12,7 @@ from Common.Utils import GetJLineEarnRateFileName
 from AnalyStock import KDJStragety
 from AnalyStock.HS300Dynamic import HS300Dynamic
 from StragetyVerify.HS300DynamicVerify import get5MaxAMStocks
+from AnalyStock.StockAdjustCycle import StockAdjustCycle
 logger = Logger.log()
 
 
@@ -143,8 +144,9 @@ def testCertainStockEarnMoney(logger):
 
 if __name__ == '__main__':
 
-    get5MaxAMStocks(logger)
-    #testCertainStockEarnMoney(logger)
-    #GetStockData.GetDataFromWeb.TimeToGetDataRunForEveryMin(logger)
-    # from AnalyStock.WFigureJudge import JudgeStockWFigure
-    # JudgeStockWFigure(logger)
+    #get5MaxAMStocks(logger)
+    testCertainStockEarnMoney(logger)
+    #StockAdjustCycle(logger)
+    #
+
+

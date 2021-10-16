@@ -62,7 +62,7 @@ def readSingleStockData(logger, stock_code, file_name=CONST.STOCK_DATA_AFTER_FIL
 
 # 获取上证指数、深证指数的原始数据
 def getCompositeIndexFileData(logger, stock_code='SH.000001', file_name=CONST.STOCK_DATA_ORIGNAL_FILE_NAME,
-                              path=CONST.STOCK_CODE_FOLDER_PATH):
+                              path=CONST.STOCK_DATA_FOLDER_PATH):
     if stock_code not in ['SH.000001', 'SZ.399106']:
         logger.warn('CompositeIndex code is {} not right'.format(stock_code))
         df_final = pd.DataFrame()
