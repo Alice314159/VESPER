@@ -14,16 +14,11 @@ def mkdir(path):
     # 去除尾部 \ 符号
     path = path.rstrip("\\")
 
-
     isExists = os.path.exists(path)
     # 判断结果
     if not isExists:
         os.makedirs(path)
         return True
-    else:
-
-
-    return False
 
 
 # 根据获取的数据类型（原始数据，前复权数据，后复权数据）获取存储的文件名称
@@ -88,9 +83,11 @@ def GetJLineEarnRateFileName(earn_money = 10000):
     file_name += ".xlsx"
     return file_name
 
-def DeleteDataUnderFolders(folderpath):
-    shutil.rmtree(folderpath)
-    os.mkdir(folderpath)
+def DeleteFolders(folderpath):
+    isExists = os.path.exists(folderpath)
+    # 判断结果
+    if isExists:
+        shutil.rmtree(folderpath)
     return
 
 

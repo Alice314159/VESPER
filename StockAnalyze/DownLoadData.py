@@ -1,10 +1,16 @@
+import sys
+import os
+
+path = os.path.abspath('..')
+sys.path.extend([path])
+print(sys.path)
+
 from GetStockData import GetDataFromWeb as DownLoadStockData
 from GetStockData import GetCompositeIndex as DownLoadCompositeData
 from EnumData import EnumInfo as EnumData
-from EnumData import CONSTDEFINE as CONST
 from GetStockCode import getStockCodeInfo
 import sys
-from Common.Utils import DeleteDataUnderFolders
+
 
 print(sys.argv)
 

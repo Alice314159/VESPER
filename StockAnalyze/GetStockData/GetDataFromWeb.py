@@ -5,7 +5,7 @@ import efinance as ef
 from StockAnalyze.EnumData import CONSTDEFINE as CONST
 from StockAnalyze.EnumData import EnumInfo as EnumData
 from StockAnalyze.Common.Utils import getFileNameByAdjust
-from StockAnalyze.Common.Utils import mkdir,DeleteDataUnderFolders
+from StockAnalyze.Common.Utils import mkdir,DeleteFolders
 from StockAnalyze.GetStockCode import getStockCodeInfo
 from StockAnalyze.ReadDataFromFile import readDataFromFile as RD
 
@@ -37,7 +37,7 @@ def getAndSaveSingleStockCodeData(logger, stock_code, adjustflagData, frequencyD
     # 分钟线指标：date,time,code,open,high,low,close,volume,amount,adjustflag
     # 周月线指标：date,code,open,high,low,close,volume,amount,adjustflag,turn,pctChg
     folder_path = CONST.STOCK_DATA_FOLDER_PATH + "\\" + stock_code
-    DeleteDataUnderFolders(folder_path)
+    DeleteFolders(folder_path)
     mkdir(folder_path)
 
     file_name = folder_path + "\\" + getFileNameByAdjust(adjustflagData)

@@ -1,3 +1,10 @@
+import sys
+import os
+
+path = os.path.abspath('..')
+sys.path.extend([path])
+print(sys.path)
+
 import EnumData.CONSTDEFINE as CONST
 from ReadDataFromFile import readDataFromFile as RD
 from AnalyStock import cal60Data as Cal60
