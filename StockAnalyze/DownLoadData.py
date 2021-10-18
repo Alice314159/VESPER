@@ -53,6 +53,6 @@ def GetRealDataForMin():
 
 GetDataForDay()
 scheduler = BlockingScheduler()
-scheduler.add_job(GetDataForDay, 'cron', day_of_week='1-5', hour=18, minute=30)
+scheduler.add_job(GetDataForDay, 'cron', day_of_week='0-4', hour=18, minute=30)
 # scheduler.add_job(GetRealDataForMin,trigger='interval', minutes=5,next_run_time=datetime.now())
 scheduler.start()
