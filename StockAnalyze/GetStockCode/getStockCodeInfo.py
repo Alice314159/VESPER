@@ -36,6 +36,28 @@ def getAllStockCodeFromFile(logger):
             logger.warn('stock code error {}'.format(stock_code_temp))
 
     return list_stock_code
+
+def ReadHS300StockCode(logger):
+    file_name = CONST.STOCK_CODE_FOLDER_PATH + "\\" + CONST.STOCK_CODE_HS300_FILE_NAME
+    pd_stock = pd.read_excel(file_name, usecols=[4, 7])
+
+    list_stock = pd_stock.values.tolist()
+    list_stock_res = []
+    for stock_info in list_stock:
+        stock_code = stock_info[0]
+        stock_temp_home = stock_info[1]
+        stock_home = 'SZ.'
+        if stock_temp_home == 'SHH':
+            stock_home = 'SH.'
+        elif stock_temp_home == 'SHZ':
+            stock_home = 'SZ.'
+        else:
+            stock_home = 'BJ.'
+
+        stock_code_info = stock_home + str(stock_code).zfill(6)
+        list_stock_res.append(stock_code_info)
+    return list_stock_res
+
 #获取股票数据，剔除后缀
 def getAllStockCodeWithoutExFromFile(logger):
     file_name = CONST.STOCK_CODE_FOLDER_PATH + "\\" + CONST.STOCK_CODE_FILE_NAME

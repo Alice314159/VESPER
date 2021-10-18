@@ -83,6 +83,10 @@ def ReadHS300StockCode(logger):
         stock_home = 'SZ.'
         if stock_temp_home == 'SHH':
             stock_home = 'SH.'
+        elif stock_temp_home == 'SHZ':
+            stock_home = 'SZ.'
+        else:
+            stock_home = 'BJ.'
 
         stock_code_info = stock_home + str(stock_code).zfill(6)
         list_stock_res.append(stock_code_info)

@@ -135,8 +135,9 @@ logger = Logger.log()
 
 
 def testCertainStockEarnMoney(logger):
-    stock_code_list1 = getStockCodeInfo.getAllStockCodeFromFile(logger)
-    stock_code_list = stock_code_list1[0:50]
+    #stock_code_list = getStockCodeInfo.getAllStockCodeFromFile(logger)
+    stock_code_list = getStockCodeInfo.ReadHS300StockCode(logger)
+    #stock_code_list = stock_code_list1[0:50]
     #stock_code_list = ['SZ.300015']
     KDJStragety.KDJStragetyStockEarnMoney(logger,stock_code_list)
 
