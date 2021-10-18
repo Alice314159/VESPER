@@ -1,9 +1,8 @@
 import sys
 import os
-
 path = os.path.abspath('..')
 sys.path.extend([path])
-print(sys.path)
+
 
 from GetStockData import GetDataFromWeb as DownLoadStockData
 from GetStockData import GetCompositeIndex as DownLoadCompositeData

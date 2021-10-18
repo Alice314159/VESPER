@@ -23,6 +23,8 @@ def getDayKline(logger, stock_code_list, adjustflagList=[], frequencyData='d'):
         return
 
     for stock_code in stock_code_list:
+        folder_path = CONST.STOCK_DATA_FOLDER_PATH + "\\" + stock_code
+        DeleteFolders(folder_path)
         for adjustFlag in adjustflagList:
             getAndSaveSingleStockCodeData(logger, stock_code, adjustFlag, frequencyData)
 
@@ -37,7 +39,6 @@ def getAndSaveSingleStockCodeData(logger, stock_code, adjustflagData, frequencyD
     # 分钟线指标：date,time,code,open,high,low,close,volume,amount,adjustflag
     # 周月线指标：date,code,open,high,low,close,volume,amount,adjustflag,turn,pctChg
     folder_path = CONST.STOCK_DATA_FOLDER_PATH + "\\" + stock_code
-    DeleteFolders(folder_path)
     mkdir(folder_path)
 
     file_name = folder_path + "\\" + getFileNameByAdjust(adjustflagData)
