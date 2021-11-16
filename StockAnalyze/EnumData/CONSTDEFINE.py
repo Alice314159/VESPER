@@ -2,6 +2,9 @@
 STOCK_NAME_ENG = 'stockName'
 #股票代码
 STOCK_CODE_ENG = 'code'
+STOCK_CODE_TEMP_ENG = 'ts_code'
+#股票上市时间
+STOCK_DATE_LIST = 'list_date'
 #日期
 STOCK_DATE_ENG = 'date'
 #开盘价
@@ -93,6 +96,8 @@ STOCK_REAL_FOLDER_PATH = '..\Data\RealData'
 STOCK_TEMP_FOLDER_PATH = '..\Data\Param'
 #存储计算买卖点数据
 STOCK_TEMP_TRADE_PATH = '..\Data\Trade'
+#存储K线图
+STOCK_TEMP_DRAW_PATH = '..\Data\Draw'
 #股票的原始数据信息
 STOCK_DATA_ORIGNAL_FILE_NAME = "original_data.xlsx"
 #股票的前复权数据信息

@@ -5,6 +5,7 @@ import shutil
 import time
 import datetime
 import numpy as np
+from dateutil.parser import parse
 from StockAnalyze.Common import ReadConfig
 
 
@@ -20,6 +21,24 @@ def mkdir(path):
         os.makedirs(path)
         return True
 
+def getStockFileStorePath(stock_code,parent_path):
+    stock_info = stock_code.split('.')
+    stock_suffix = str(stock_info[0]).upper()
+    if stock_suffix in ['SH','SZ','BZ']:
+        return parent_path + "\\" + stock_suffix + "\\" + stock_info[1]
+    else:
+        return parent_path + "\\" + stock_info[1] + "\\" + stock_suffix
+
+
+
+def getFileNameByAdjustForTushare(dataType):
+    if dataType == 'qfq':
+        return CONST.STOCK_DATA_PRE_FILE_NAME
+
+    elif dataType == 'hfq':
+        return CONST.STOCK_DATA_AFTER_FILE_NAME
+    else:
+        return CONST.STOCK_DATA_ORIGNAL_FILE_NAME
 
 # 根据获取的数据类型（原始数据，前复权数据，后复权数据）获取存储的文件名称
 def getFileNameByAdjust(dataType):
@@ -58,10 +77,12 @@ def GetWeekday(strDate):
     nweek = datetime.datetime.strptime(strDate, "%Y-%m-%d").weekday() + 1
     return nweek
 
-def GetNdaysBefore(ndays = 90):
+
+def GetNdaysBefore(ndays=90):
     import datetime
     date_ago = (datetime.datetime.now() - datetime.timedelta(ndays)).strftime('%Y-%m-%d')
     return date_ago
+
 
 # 生成指定个数的随机数
 def GenerateRandomNum(num):
@@ -71,17 +92,19 @@ def GenerateRandomNum(num):
 
     return list(set(list_num))
 
-#根据配置文件生成文件名称
-def GetJLineEarnRateFileName(earn_money = 10000):
+
+# 根据配置文件生成文件名称
+def GetJLineEarnRateFileName(earn_money=10000):
     RD = ReadConfig.ReadConfig()
     param_list = RD.GetJlineItems()
     file_name = CONST.STOCK_TEMP_FOLDER_PATH + "\\" + "param_J_" + str(earn_money) + '_'
     for data in param_list:
         if data[1] == '':
             continue
-        file_name += (data[1] +"_")
+        file_name += (data[1] + "_")
     file_name += ".xlsx"
     return file_name
+
 
 def DeleteFolders(folderpath):
     isExists = os.path.exists(folderpath)
@@ -91,6 +114,17 @@ def DeleteFolders(folderpath):
     return
 
 
+# 输入日期，转换为星期函数,0-星期一；6-星期日
+def Date2Week(strDate):
+    return parse(strDate).weekday()
+
+
+# 输入两个日期，计算两个日期之间的天数
+def Date2DateDays(strDate1, strDate2):
+    ndays = parse(strDate1) - parse(strDate2)
+    return abs(ndays.days)
+
+
 if __name__ == '__main__':
-    ndays = GetWeekday('2021-08-31')
+    ndays = Date2DateDays('2021-11-07', '2021-11-10')
     print(ndays)

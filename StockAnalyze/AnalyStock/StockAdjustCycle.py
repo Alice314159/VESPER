@@ -1,7 +1,9 @@
 # 计算股票的调整周期
+import pandas as pd
+
 from StockAnalyze.ReadDataFromFile import readDataFromFile as RD
 import StockAnalyze.EnumData.CONSTDEFINE as CONST
-
+import StockAnalyze.Common.Drawing as Draw
 
 def StockAdjustCycle(logger):
     # 获取股票列表
@@ -18,6 +20,8 @@ def _getStockAdjustCycle(logger, stock_code_list):
         df_single = RD.readSingleStockData(logger, stock_code, CONST.STOCK_DATA_AFTER_FILE_NAME,
                                            CONST.STOCK_DATA_FOLDER_PATH)
 
+        Draw.DrawingKine(logger,stock_code,df_single)
+
         data_column = [CONST.STOCK_CODE_ENG, CONST.STOCK_DATE_ENG, CONST.STOCK_CLOSE_PRICE_ENG]
 
         df_single = df_single[data_column]
@@ -32,25 +36,46 @@ def _getStockAdjustCycle(logger, stock_code_list):
 def _getSingleStockAdjustCycle(logger, stock_code, df_data):
     # 计算N日内的最大值和最小值，并保存日期
     nDays = 20
-    strDaysMax = 'DaysMax'
-    strDaysMin = 'DaysMin'
-    strDaysMaxDate = 'DaysMaxDate'
-    strDaysMinDate = 'DaysMinDate'
+    strMax = 'maxClose'
+    strMin = 'minClose'
+    strMaxDate = 'maxDate'
+    strMinDate = 'minDate'
 
-    df_data[strDaysMax] = df_data[CONST.STOCK_CLOSE_PRICE_ENG].rolling(window=nDays).max()
-    df_data[strDaysMaxDate] = df_data[df_data[CONST.STOCK_CLOSE_PRICE_ENG] == df_data[strDaysMax]][CONST.STOCK_DATE_ENG]
+    #1.查找20日内收盘价的最值
+    df_data[strMax] = df_data[CONST.STOCK_CLOSE_PRICE_ENG].rolling(window=nDays).max()
+    df_data[strMin] = df_data[CONST.STOCK_CLOSE_PRICE_ENG].rolling(window=nDays).min()
 
-    df_data[strDaysMin] = df_data[CONST.STOCK_CLOSE_PRICE_ENG].rolling(window=nDays).min()
-    df_data[strDaysMinDate] = df_data[df_data[CONST.STOCK_CLOSE_PRICE_ENG] == df_data[strDaysMin]][CONST.STOCK_DATE_ENG]
+    #2.查找收盘价20日内最高价的日期，并转换为dataFrame形式
+    close_price_list = df_data[CONST.STOCK_CLOSE_PRICE_ENG].values.tolist()
+    date_list = df_data[CONST.STOCK_DATE_ENG].values.tolist()
+    list_data =[]
+    for i in range(nDays,len(close_price_list)-1):
+        list_temp = close_price_list[i-nDays:i]
+        data_min = min(list_temp)
+        min_index = list_temp.index(data_min)
+        min_date = date_list[i-nDays+min_index]
 
-    df_data_extreme = df_data[df_data[strDaysMaxDate].notnull() | df_data[strDaysMinDate].notnull()]
+        data_max = max(list_temp)
+        max_index = list_temp.index(data_max)
+        max_date = date_list[i - nDays + max_index]
 
-    df_data_max = df_data_extreme[df_data_extreme[strDaysMaxDate].notnull()]
-    df_data_min = df_data_extreme[df_data_extreme[strDaysMinDate].notnull()]
+        list_data.append((stock_code,date_list[i-1],close_price_list[i-1],data_min,min_date,data_max,max_date))
+    df_data_extreme = pd.DataFrame(list_data,columns=[CONST.STOCK_CODE_ENG,CONST.STOCK_DATE_ENG,CONST.STOCK_CLOSE_PRICE_ENG,strMin,strMinDate,strMax,strMaxDate])
 
-    df_data_max['date_index'] = df_data_max.index.tolist()
-    df_data_extreme['date_diff'] = df_data_max['date_index'] - df_data_max['date_index'].shift(1)
-    df_data_extreme.to_excel('E:\Code\pythonCode\StockAnalyzeProj\Data\MinMax\\' + stock_code + 'minMax.xlsx')
-    print(df_data)
+    df_data_extreme.to_excel('E:\Code\pythonCode\StockAnalyzeProj\Data\MinMax\\' + stock_code + '.xlsx')
+
+    #3.分组，计算每个最值出现的次数,分组以后，每一列的统计结果值都相同为统计的个数。
+    df_count = df_data_extreme.groupby(strMaxDate).count()
+    list_extreme_days = []
+    nThreshod = max(nDays/4,2)
+    for date, row in df_count.iterrows():
+        #最大值在rolling窗口期存在的时长
+        maxDays = row[strMax]
+        if maxDays >= nThreshod:
+            list_extreme_days.append((date,maxDays))
+
+    print(list_extreme_days)
+
+
 
     return

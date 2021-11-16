@@ -16,6 +16,8 @@ def getAllStockCodeFromWeb(logger):
     data = pd.DataFrame(df_stock_info)
     file_name = CONST.STOCK_CODE_FOLDER_PATH + "\\" + CONST.STOCK_CODE_FILE_NAME
     utils.mkdir(CONST.STOCK_CODE_FOLDER_PATH)
+
+
     data.to_excel(file_name, sheet_name='data')
 
 

@@ -8,7 +8,7 @@ from StockAnalyze.Common.Utils import getFileNameByAdjust
 from StockAnalyze.Common.Utils import mkdir,DeleteFolders
 from StockAnalyze.GetStockCode import getStockCodeInfo
 from StockAnalyze.ReadDataFromFile import readDataFromFile as RD
-
+from StockAnalyze.Common.Utils import getStockFileStorePath
 
 # 输入股票的编号，获取数据的开始结束日期，获取的数据类型
 def getDayKline(logger, stock_code_list, adjustflagList=[], frequencyData='d'):
@@ -23,8 +23,11 @@ def getDayKline(logger, stock_code_list, adjustflagList=[], frequencyData='d'):
         return
 
     for stock_code in stock_code_list:
-        folder_path = CONST.STOCK_DATA_FOLDER_PATH + "\\" + stock_code
-        DeleteFolders(folder_path)
+        if stock_code.startswith("BJ"):
+            continue
+
+        if stock_code.startswith("SZ"):
+            continue
         for adjustFlag in adjustflagList:
             getAndSaveSingleStockCodeData(logger, stock_code, adjustFlag, frequencyData)
 
@@ -38,7 +41,8 @@ def getAndSaveSingleStockCodeData(logger, stock_code, adjustflagData, frequencyD
     # 详细指标参数，参见“历史行情指标参数”章节；“分钟线”参数与“日线”参数不同。“分钟线”不包含指数。
     # 分钟线指标：date,time,code,open,high,low,close,volume,amount,adjustflag
     # 周月线指标：date,code,open,high,low,close,volume,amount,adjustflag,turn,pctChg
-    folder_path = CONST.STOCK_DATA_FOLDER_PATH + "\\" + stock_code
+
+    folder_path = getStockFileStorePath(stock_code,CONST.STOCK_DATA_FOLDER_PATH)
     mkdir(folder_path)
 
     file_name = folder_path + "\\" + getFileNameByAdjust(adjustflagData)
@@ -52,7 +56,10 @@ def getAndSaveSingleStockCodeData(logger, stock_code, adjustflagData, frequencyD
     logger.info('query_history_k_data_plus code:{} respond error_code:{}'.format(stock_code, rs.error_code))
     if rs.error_code != '0':
         logger.warn('query_history_k_data_plus code:{} respond  error_msg:{}'.format(stock_code, rs.error_msg))
-
+        if rs.error_code == '10001001':
+            logger.warn('用户登录失败 ,begin to login again'.format(stock_code, rs.error_msg))
+            lg = bs.login()
+        return
     #### 打印结果集 ####
     data_list = []
     while (rs.error_code == '0') & rs.next():

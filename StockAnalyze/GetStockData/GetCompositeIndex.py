@@ -4,7 +4,7 @@ import os
 import datetime
 from StockAnalyze.EnumData import CONSTDEFINE as CONST
 from StockAnalyze.Common.Utils import mkdir
-
+from StockAnalyze.Common.Utils import getStockFileStorePath
 
 
 # 获取指数(综合指数、规模指数、一级行业指数、二级行业指数、策略指数、成长指数、价值指数、主题指数)K线数据
@@ -18,7 +18,7 @@ from StockAnalyze.Common.Utils import mkdir
 # 主题指数，例如：sh.000015 红利指数，sh.000063 上证周期 等；
 def _getStockData(logger,stock_code = 'SH.000001'):
 
-    folder_path = CONST.STOCK_DATA_FOLDER_PATH + "\\" + stock_code.upper()
+    folder_path = getStockFileStorePath(stock_code, CONST.STOCK_DATA_FOLDER_PATH)
     mkdir(folder_path)
 
     file_name = folder_path + "\\" + CONST.STOCK_DATA_ORIGNAL_FILE_NAME
