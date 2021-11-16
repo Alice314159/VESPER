@@ -93,6 +93,8 @@ STOCK_REAL_FOLDER_PATH = '..\Data\RealData'
 STOCK_TEMP_FOLDER_PATH = '..\Data\Param'
 #存储计算买卖点数据
 STOCK_TEMP_TRADE_PATH = '..\Data\Trade'
+#存储K线图
+STOCK_TEMP_DRAW_PATH = '..\Data\Draw'
 #股票的原始数据信息
 STOCK_DATA_ORIGNAL_FILE_NAME = "original_data.xlsx"
 #股票的前复权数据信息

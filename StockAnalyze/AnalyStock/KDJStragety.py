@@ -86,9 +86,11 @@ def getSingleCodeDataWithKDJ(logger,stock_code):
     df_orignal = RD.readSingleStockData(logger, stock_code, CONST.STOCK_DATA_PRE_FILE_NAME,
                                         CONST.STOCK_DATA_FOLDER_PATH)
 
-    if df_orignal.empty:
+    if df_orignal.empty :
         logger.warning("stock-{} data is wrong ,please check".format(stock_code))
 
+    elif df_orignal.count() < 5:
+        logger.warning("stock-{} data is not enough ,please wait".format(stock_code))
     else:
         df_orignal = ParamCal.calKDJLine(stock_code, df_orignal)
 

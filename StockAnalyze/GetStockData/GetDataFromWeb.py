@@ -52,7 +52,10 @@ def getAndSaveSingleStockCodeData(logger, stock_code, adjustflagData, frequencyD
     logger.info('query_history_k_data_plus code:{} respond error_code:{}'.format(stock_code, rs.error_code))
     if rs.error_code != '0':
         logger.warn('query_history_k_data_plus code:{} respond  error_msg:{}'.format(stock_code, rs.error_msg))
-
+        if rs.error_code == '10001001':
+            logger.warn('用户登录失败 ,begin to login again'.format(stock_code, rs.error_msg))
+            lg = bs.login()
+        return
     #### 打印结果集 ####
     data_list = []
     while (rs.error_code == '0') & rs.next():
