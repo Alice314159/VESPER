@@ -19,3 +19,5 @@ if __name__ == "__main__":
   ui.setupUi(MainWindow)         # 执行类中的setupUi方法，方法的参数是第二步中创建的QMainWindow
   MainWindow.show()            # 执行QMainWindow的show()方法，显示这个QMainWindow
   sys.exit(app.exec_())
+
+  test
