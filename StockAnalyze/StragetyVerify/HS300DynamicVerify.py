@@ -10,7 +10,7 @@ PRICE_RAISE_60 = 'priceRaise60'
 SELL_PRICE = 'sellPrice'
 SELL_DATE = 'sellDate'
 
-#获取每天涨幅最大的5至股票
+#获取每天涨幅最大的5只股票
 def get5MaxAMStocks(logger,buyPeriod=20,maxStock = 2):
     stock_list = RD.ReadHS300StockCode(logger)
     #stock_list = stock_list[:3]

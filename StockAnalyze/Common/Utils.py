@@ -7,6 +7,8 @@ import datetime
 import numpy as np
 from dateutil.parser import parse
 from StockAnalyze.Common import ReadConfig
+import math
+from dateutil.relativedelta import relativedelta
 
 
 def mkdir(path):
@@ -53,11 +55,11 @@ def getFileNameByAdjust(dataType):
 
 
 # 计算两个日期相差天数，自定义函数名，和两个日期的变量名。
-def CalDaysBetweenDates(date1, date2):
+def CalDaysBetweenDates(beginDate, EndDate):
     # %Y-%m-%d为日期格式，其中的-可以用其他代替或者不写，但是要统一，同理后面的时分秒也一样；可以只计算日期，不计算时间。
     # date1=time.strptime(date1,"%Y-%m-%d %H:%M:%S")
     # date2=time.strptime(date2,"%Y-%m-%d %H:%M:%S")
-    date1 = time.strptime(date1, "%Y-%m-%d")
+    date1 = time.strptime(beginDate, "%Y-%m-%d")
 
     endTime = datetime.datetime.now().strftime("%Y-%m-%d")
     date2 = time.strptime(endTime, "%Y-%m-%d")
@@ -125,6 +127,25 @@ def Date2DateDays(strDate1, strDate2):
     return abs(ndays.days)
 
 
+#获取最近几个季度的开始和结束日期,参数默认1，计算上一个季度
+def GetNQuartersDate(lastNQuarters = 1):
+    nowdays = datetime.datetime.now()
+    lastDateInfo = nowdays - relativedelta(months=lastNQuarters*3)
+
+    #计算历史季度
+    lastInYead = lastDateInfo.year
+    lastInMonth = lastDateInfo.month
+    quarterMonth = 3*math.floor(lastInMonth/3) + 1
+
+    quarterBeginDate = datetime.datetime(lastInYead,quarterMonth,1)
+    quarterEndDate = quarterBeginDate + relativedelta(months=3) - datetime.timedelta(days=1)
+
+    str_quarterBeginDate = quarterBeginDate.strftime('%Y%m%d')
+    str_quarterEndDate = quarterEndDate.strftime('%Y%m%d')
+
+    return (str_quarterBeginDate,str_quarterEndDate)
+
 if __name__ == '__main__':
     ndays = Date2DateDays('2021-11-07', '2021-11-10')
-    print(ndays)
+    aa = GetNQuartersDate(14)
+    print(aa)

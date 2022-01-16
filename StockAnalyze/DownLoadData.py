@@ -3,21 +3,20 @@ import os
 path = os.path.abspath('..')
 sys.path.extend([path])
 
-
 from GetStockData import GetDataFromWeb as DownLoadStockData
 from GetStockData import GetCompositeIndex as DownLoadCompositeData
 from EnumData import EnumInfo as EnumData
 from GetStockCode import getStockCodeInfo
 from DataFromWeb import DataFromTushare
 import sys
-from multiprocessing import Process
+import multiprocessing
+from loguru import logger
+logger.add("../Log/downLoad.log", rotation="1 MB")
 
 
 print(sys.argv)
 
-from Common import Logger
 
-logger = Logger.log()
 
 
 def paramParse():
@@ -50,8 +49,8 @@ def GetDataForDay(logger):
 
 def GetDataByTushare(logger):
     strnum = paramParse()
-    DownLoadCompositeData.GetCompositeIndex(logger)
     DataFromTushare.GetDayKline(logger)
+    DownLoadCompositeData.GetCompositeIndex(logger)
     DownLoadStockData.TimeToGetDataRunForEveryDay(logger, EnumData.StockCodeType.StockHS300, strnum)
 
 def GetRealDataForMin():
@@ -64,10 +63,11 @@ def GetRealDataForMin():
 # # scheduler.add_job(GetRealDataForMin,trigger='interval', minutes=5,next_run_time=datetime.now())
 # scheduler.start()
 if __name__ == '__main__':
-    # GetDataByTushare(logger)
+    GetDataByTushare(logger)
     # GetDataForDay(logger)
-    p1 = Process(target=GetDataByTushare, args=(logger,))
-    p1.start()
 
-    p2 = Process(target=GetDataForDay, args=(logger,))
-    p2.start()
+    # p1 = Process(target=GetDataByTushare, args=(logger,))
+    # p1.start()
+    #
+    # p2 = Process(target=GetDataForDay, args=(logger,))
+    # p2.start()

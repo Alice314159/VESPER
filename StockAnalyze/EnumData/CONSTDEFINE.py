@@ -7,6 +7,7 @@ STOCK_CODE_TEMP_ENG = 'ts_code'
 STOCK_DATE_LIST = 'list_date'
 #日期
 STOCK_DATE_ENG = 'date'
+STOCK_DATE_TEMP_ENG = 'trade_date'
 #开盘价
 STOCK_OPEN_PRICE_ENG = 'open'
 #收盘价
@@ -17,12 +18,14 @@ STOCK_HIGHEST_ENG = 'high'
 STOCK_LOWEST_ENG = 'low'
 #成交量
 STOCK_DEAL_COUNT_ENG = 'volume'
+STOCK_DEAL_COUNT_TEMP_ENG = 'vol'
 #成交额
 STOCK_DEAL_MONEY_ENG = 'amount'
 #交易状态
 STOCK_TRADE_STATUS = 'tradestatus'
 #涨跌幅（百分比）日涨跌幅=[(指定交易日的收盘价-指定交易日前收盘价)/指定交易日前收盘价]*100%
 STOCK_PCT_CHG = 'pctChg'
+STOCK_PCT_TEMP_CHG = 'pct_chg'
 #滚动市盈率
 #(指定交易日的股票收盘价/指定交易日的每股盈余TTM)=(指定交易日的股票收盘价*截至当日公司总股本)/归属母公司股东净利润TTM
 STOCK_PETTM_ENG = 'peTTM'

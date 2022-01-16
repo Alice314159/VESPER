@@ -12,7 +12,6 @@ from AnalyStock import calKDJ as CalKDJ
 from AnalyStock import BuyORSell as BUYORSELL
 from GetStockCode import getStockCodeInfo
 from GetStockData import GetDataFromWeb as DownLoadData
-from Common import Logger
 import pandas as pd
 from Common.Utils import GenerateRandomNum
 from Common.Utils import GetJLineEarnRateFileName
@@ -20,7 +19,9 @@ from AnalyStock import KDJStragety
 from AnalyStock.HS300Dynamic import HS300Dynamic
 from StragetyVerify.HS300DynamicVerify import get5MaxAMStocks
 from AnalyStock.StockAdjustCycle import StockAdjustCycle
-logger = Logger.log()
+from AnalyStock.RisenStockFor3Quarters import CalRisenStockForInterval
+from loguru import logger
+logger.add("../Log/runlog.log", rotation="1 MB")
 
 
 # # 3.读取股票列表信息，进行分析验证
@@ -153,7 +154,8 @@ def testCertainStockEarnMoney(logger):
 if __name__ == '__main__':
 
     #get5MaxAMStocks(logger)
-    testCertainStockEarnMoney(logger)
+    #testCertainStockEarnMoney(logger)
+    CalRisenStockForInterval(logger)
     #StockAdjustCycle(logger)
     #
 

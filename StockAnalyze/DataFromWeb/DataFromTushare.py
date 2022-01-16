@@ -3,6 +3,7 @@ from StockAnalyze.EnumData import CONSTDEFINE as CONST
 from StockAnalyze.Common.Utils import getFileNameByAdjustForTushare,getStockFileStorePath
 from StockAnalyze.Common.Utils import mkdir,DeleteFolders
 import datetime
+import pandas as pd
 def setToken():
     # 设置token
     token = 'ad82772c1b29371d27453121955c93099a9c48beeb048a4b2d89c8ec'
@@ -33,6 +34,11 @@ def GetDayKline(logger,dataType = ['qfq','hfq']):
     # 查询当前所有正常上市交易的股票列表(获取基础信息数据，包括股票代码、名称、上市日期、退市日期等)
     df_stock_info = pro.stock_basic(exchange='', list_status='L', fields='ts_code,symbol,name,area,industry,list_date')
     list_stock = df_stock_info[['ts_code','list_date']].values.tolist()
+    rename_list = {CONST.STOCK_DATE_TEMP_ENG: CONST.STOCK_DATE_ENG,
+                   CONST.STOCK_CODE_TEMP_ENG:CONST.STOCK_CODE_ENG,
+                   CONST.STOCK_DEAL_COUNT_TEMP_ENG:CONST.STOCK_DEAL_COUNT_ENG,
+                   CONST.STOCK_PCT_TEMP_CHG:CONST.STOCK_PCT_CHG}
+
     for stock_info in list_stock:
         stock_code= stock_info[0]
         if str(stock_code).endswith('.SH'):
@@ -44,7 +50,15 @@ def GetDayKline(logger,dataType = ['qfq','hfq']):
         for adj1 in dataType:
             df_data = ts.pro_bar(ts_code=stock_code, adj=adj1, start_date= stock_start_date, end_date=stock_end_date)
             file_name = folder_path + "\\" + getFileNameByAdjustForTushare(adj1)
-            df_data.to_excel(file_name, index=False)
+            #修改字段名称，使文件名称一致
+            df1 = df_data.rename(columns=rename_list)
+            df2 = df1.dropna()
+
+            df2[CONST.STOCK_DATE_ENG] = pd.to_datetime(df2[CONST.STOCK_DATE_ENG])
+            df2[CONST.STOCK_DATE_ENG] = df2[CONST.STOCK_DATE_ENG].apply(lambda x: x.strftime('%Y-%m-%d'))
+
+            df_data1 = df2.sort_values(by=[CONST.STOCK_DATE_ENG])
+            df_data1.to_excel(file_name, index=False)
             logger.info("write file:{} finished".format(file_name))
     return
 

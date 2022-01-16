@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from StockAnalyze.EnumData import CONSTDEFINE as CONST
-
+from StockAnalyze.Common.Utils import getStockFileStorePath
 
 
 def getFoldersName(folder_path):
@@ -39,9 +39,11 @@ def combineSingleStockData(stock_code, path='../stockData'):
     return df_final
 
 
-def readSingleStockData(logger, stock_code, file_name=CONST.STOCK_DATA_AFTER_FILE_NAME, path=CONST.STOCK_CODE_FOLDER_PATH):
+def readSingleStockData(logger, stock_code, file_name=CONST.STOCK_DATA_AFTER_FILE_NAME, path=CONST.STOCK_DATA_FOLDER_PATH):
     df_final = pd.DataFrame()
-    file_path = path + "\\" + stock_code + "\\" + file_name
+    folder_path = getStockFileStorePath(stock_code,path)
+
+    file_path = folder_path+ "\\" + file_name
     if os.path.exists(file_path):
         logger.info("file = {} is existed,begin to read".format(file_path))
         df_stock = pd.read_excel(file_path)
