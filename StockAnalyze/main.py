@@ -20,6 +20,7 @@ from AnalyStock.HS300Dynamic import HS300Dynamic
 from StragetyVerify.HS300DynamicVerify import get5MaxAMStocks
 from AnalyStock.StockAdjustCycle import StockAdjustCycle
 from AnalyStock.RisenStockFor3Quarters import CalRisenStockForInterval
+from AnalyStock.HighOpenHighClose import CalHighOpenHighCloseStock
 from loguru import logger
 logger.add("../Log/runlog.log", rotation="1 MB")
 
@@ -155,7 +156,8 @@ if __name__ == '__main__':
 
     #get5MaxAMStocks(logger)
     #testCertainStockEarnMoney(logger)
-    CalRisenStockForInterval(logger)
+    #CalRisenStockForInterval(logger)
+    CalHighOpenHighCloseStock(logger)
     #StockAdjustCycle(logger)
     #
 

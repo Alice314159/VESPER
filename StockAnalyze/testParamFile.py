@@ -1,10 +1,10 @@
 
-from Common import Logger
 from StockAnalyze.Common import ReadConfig
 from StockAnalyze.EnumData import ConfigParam as Param
 from GetStockCode import getStockCodeInfo
 from AnalyStock import KDJStragety
-logger = Logger.log()
+from loguru import logger
+logger.add("../Log/testlog.log", rotation="1 MB")
 Config = ReadConfig.ReadConfig()
 
 def modifyBuyParam():

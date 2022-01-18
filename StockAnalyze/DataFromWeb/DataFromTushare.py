@@ -37,7 +37,8 @@ def GetDayKline(logger,dataType = ['qfq','hfq']):
     rename_list = {CONST.STOCK_DATE_TEMP_ENG: CONST.STOCK_DATE_ENG,
                    CONST.STOCK_CODE_TEMP_ENG:CONST.STOCK_CODE_ENG,
                    CONST.STOCK_DEAL_COUNT_TEMP_ENG:CONST.STOCK_DEAL_COUNT_ENG,
-                   CONST.STOCK_PCT_TEMP_CHG:CONST.STOCK_PCT_CHG}
+                   CONST.STOCK_PCT_TEMP_CHG:CONST.STOCK_PCT_CHG,
+                   CONST.STOCK_PRE_CLOSE_PRICE_TEMP_ENG:CONST.STOCK_PRE_CLOSE_PRICE_ENG}
 
     for stock_info in list_stock:
         stock_code= stock_info[0]

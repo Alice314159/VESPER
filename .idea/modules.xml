@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/StockAnalyzeProj.iml" filepath="$PROJECT_DIR$/.idea/StockAnalyzeProj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/VESPER.iml" filepath="$PROJECT_DIR$/.idea/VESPER.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../music-downloader/.idea/music-downloader.iml" filepath="$PROJECT_DIR$/../music-downloader/.idea/music-downloader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../test/.idea/test.iml" filepath="$PROJECT_DIR$/../test/.idea/test.iml" />
     </modules>
   </component>
 </project>

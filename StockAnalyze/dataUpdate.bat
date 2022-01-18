@@ -1,3 +1,3 @@
 E:
-cd E:\pythonCode\StockAnalyze
-python DownLoadData.py SZ
+cd E:\05_Code\Python\StockAnalyzeProj\StockAnalyze
+python DownLoadData.py

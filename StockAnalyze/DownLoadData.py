@@ -9,7 +9,7 @@ from EnumData import EnumInfo as EnumData
 from GetStockCode import getStockCodeInfo
 from DataFromWeb import DataFromTushare
 import sys
-import multiprocessing
+from multiprocessing import Process
 from loguru import logger
 logger.add("../Log/downLoad.log", rotation="1 MB")
 
@@ -64,7 +64,7 @@ def GetRealDataForMin():
 # scheduler.start()
 if __name__ == '__main__':
     GetDataByTushare(logger)
-    # GetDataForDay(logger)
+    GetDataForDay(logger)
 
     # p1 = Process(target=GetDataByTushare, args=(logger,))
     # p1.start()

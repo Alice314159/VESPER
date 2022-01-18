@@ -12,6 +12,9 @@ STOCK_DATE_TEMP_ENG = 'trade_date'
 STOCK_OPEN_PRICE_ENG = 'open'
 #收盘价
 STOCK_CLOSE_PRICE_ENG = 'close'
+#昨日收盘价
+STOCK_PRE_CLOSE_PRICE_TEMP_ENG = 'pre_close'
+STOCK_PRE_CLOSE_PRICE_ENG = 'preclose'
 #最高价
 STOCK_HIGHEST_ENG = 'high'
 #最低价
@@ -101,6 +104,8 @@ STOCK_TEMP_FOLDER_PATH = '..\Data\Param'
 STOCK_TEMP_TRADE_PATH = '..\Data\Trade'
 #存储K线图
 STOCK_TEMP_DRAW_PATH = '..\Data\Draw'
+#存储高开高走的数据
+STOCK_TEMP_HIGH_OPEN_HIGH_CLOSE_PATH = '..\Data\TempFiles\HighOpenHighClose\\'
 #股票的原始数据信息
 STOCK_DATA_ORIGNAL_FILE_NAME = "original_data.xlsx"
 #股票的前复权数据信息
