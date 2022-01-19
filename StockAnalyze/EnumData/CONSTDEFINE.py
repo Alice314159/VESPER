@@ -106,6 +106,8 @@ STOCK_TEMP_TRADE_PATH = '..\Data\Trade'
 STOCK_TEMP_DRAW_PATH = '..\Data\Draw'
 #存储高开高走的数据
 STOCK_TEMP_HIGH_OPEN_HIGH_CLOSE_PATH = '..\Data\TempFiles\HighOpenHighClose\\'
+#存储fanglaing数据
+STOCK_TEMP_CAPACITY_PATH = '..\Data\TempFiles\Capacity\\'
 #股票的原始数据信息
 STOCK_DATA_ORIGNAL_FILE_NAME = "original_data.xlsx"
 #股票的前复权数据信息
