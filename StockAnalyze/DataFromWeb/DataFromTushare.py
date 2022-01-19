@@ -25,7 +25,7 @@ def getSZs():
     print(data)
 
 
-def GetDayKline(logger,dataType = ['qfq','hfq']):
+def GetDayKline(logger,dataType = ['qfq','hfq'],downlist=['BJ','SZ']):
     stock_end_date = (datetime.date.today()).strftime("%Y%m%d")
     # 设置token
     token = 'ad82772c1b29371d27453121955c93099a9c48beeb048a4b2d89c8ec'
@@ -42,25 +42,31 @@ def GetDayKline(logger,dataType = ['qfq','hfq']):
 
     for stock_info in list_stock:
         stock_code= stock_info[0]
-        if str(stock_code).endswith('.SH'):
+        stock_detail = stock_code.split('.')
+        if stock_detail[1] not in downlist:
             continue
+
         stock_start_date = stock_info[1]
         folder_path = getStockFileStorePath(stock_code,CONST.STOCK_DATA_FOLDER_PATH)
         mkdir(folder_path)
 
+        #获取前复权和后复权数据
         for adj1 in dataType:
             df_data = ts.pro_bar(ts_code=stock_code, adj=adj1, start_date= stock_start_date, end_date=stock_end_date)
             file_name = folder_path + "\\" + getFileNameByAdjustForTushare(adj1)
             #修改字段名称，使文件名称一致
-            df1 = df_data.rename(columns=rename_list)
-            df2 = df1.dropna()
+            try:
+                df1 = df_data.rename(columns=rename_list)
+                df2 = df1.dropna()
 
-            df2[CONST.STOCK_DATE_ENG] = pd.to_datetime(df2[CONST.STOCK_DATE_ENG])
-            df2[CONST.STOCK_DATE_ENG] = df2[CONST.STOCK_DATE_ENG].apply(lambda x: x.strftime('%Y-%m-%d'))
+                df2[CONST.STOCK_DATE_ENG] = pd.to_datetime(df2[CONST.STOCK_DATE_ENG])
+                df2[CONST.STOCK_DATE_ENG] = df2[CONST.STOCK_DATE_ENG].apply(lambda x: x.strftime('%Y-%m-%d'))
 
-            df_data1 = df2.sort_values(by=[CONST.STOCK_DATE_ENG])
-            df_data1.to_excel(file_name, index=False)
-            logger.info("write file:{} finished".format(file_name))
+                df_data1 = df2.sort_values(by=[CONST.STOCK_DATE_ENG])
+                df_data1.to_excel(file_name, index=False)
+                logger.info("write file:{} finished".format(file_name))
+            except:
+                logger.warning('get stock {} data something wrong'.format(stock_code))
     return
 
 def GetOrignalKLineData(logger):

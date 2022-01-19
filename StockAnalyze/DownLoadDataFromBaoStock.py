@@ -41,10 +41,12 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 
 # 每天执行一次的任务，每天下午六点半执行
-def GetDataForDay(logger):
+def GetDataForDay(logger,downlist=['SH']):
     strnum = paramParse()
+    if strnum not in ['SZ','BJ','SH']:
+        strnum = downlist[0]
     getStockCodeInfo.getAllStockCodeFromWeb(logger)
-    DownLoadStockData.TimeToGetDataRunForEveryDay(logger, EnumData.StockCodeType.StockTypeAll, strnum)
+    DownLoadStockData.TimeToGetDataRunForEveryDay(logger, EnumData.StockCodeType.StockTypeAll,strnum )
 
 
 def GetDataByTushare(logger):

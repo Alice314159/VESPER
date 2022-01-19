@@ -88,7 +88,7 @@ def getRealTimeData(logger, freq=1, folder_path=CONST.STOCK_REAL_FOLDER_PATH):
 
 
 # 每个工作日执行一次，获取最新的数据并写入文件
-def TimeToGetDataRunForEveryDay(logger, stock_type=EnumData.StockCodeType.StockTypeAll, endnum=""):
+def TimeToGetDataRunForEveryDay(logger, stock_type=EnumData.StockCodeType.StockTypeAll, endnum="SH"):
     # 1.获取所有的股票基础信息，并存储至文件
     stock_code_list = []
     if stock_type.value == EnumData.StockCodeType.StockTypeAll.value:

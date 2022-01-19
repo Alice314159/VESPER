@@ -47,9 +47,9 @@ def GetDataForDay(logger):
     DownLoadStockData.TimeToGetDataRunForEveryDay(logger, EnumData.StockCodeType.StockTypeAll, strnum)
 
 
-def GetDataByTushare(logger):
+def GetDataByTushare(logger,downlist=['BJ','SZ']):
     strnum = paramParse()
-    DataFromTushare.GetDayKline(logger)
+    DataFromTushare.GetDayKline(logger,downlist=downlist)
     DownLoadCompositeData.GetCompositeIndex(logger)
     DownLoadStockData.TimeToGetDataRunForEveryDay(logger, EnumData.StockCodeType.StockHS300, strnum)
 
