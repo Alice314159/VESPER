@@ -26,7 +26,7 @@ def mkdir(path):
 def getStockFileStorePath(stock_code,parent_path):
     stock_info = stock_code.split('.')
     stock_suffix = str(stock_info[0]).upper()
-    if stock_suffix in ['SH','SZ','BZ']:
+    if stock_suffix in ['SH','SZ','BJ']:
         return parent_path + "\\" + stock_suffix + "\\" + stock_info[1]
     else:
         return parent_path + "\\" + stock_info[1] + "\\" + stock_suffix

@@ -3,7 +3,7 @@ import os
 
 BuyParam = "JlineBuyParm"
 SellParam = "JlineSellParm"
-
+Capacity = "CapacityAM"
 
 class ConfigParserUper(ConfigParser):
 
@@ -56,6 +56,10 @@ class ReadConfig:
         self.cf.set(SellParam, param, data)
         self.cf.write(open(self.configpath, "w", encoding="utf-8"))
 
+
+    def GetCapacityParm(self, param):
+        value = float(self.cf.get(Capacity, param))
+        return value
 
 if __name__ == '__main__':
     test = ReadConfig("E:\pythonCode\StockAnalyze\config.ini")

@@ -9,9 +9,11 @@ from EnumData import EnumInfo as EnumData
 from GetStockCode import getStockCodeInfo
 from DataFromWeb import DataFromTushare
 import sys
-from multiprocessing import Process
+
+import time
+t = time.strftime("%Y_%m_%d")
 from loguru import logger
-logger.add("../Log/downLoadDataFromBaoStock.log", rotation="1 MB")
+logger.add(sink="../Log/downLoadDataFromBaoStock-{}.log".format(t),level= "INFO", rotation="1 MB",retention="10 days")
 
 
 print(sys.argv)
